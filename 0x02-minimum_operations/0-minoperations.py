@@ -8,17 +8,17 @@ def minOperations(n: int) -> int:
         result in exactly n H characters in the file.
     """
 
-    if (n == 0 or n == 1):
+    if n <= 1:
         return 0
 
+    operations_num = 0
     copied_chars = 1
-    operations_num = 2
-    chars_num = 2
+    chars_num = 1
 
-    while(chars_num < n):
-        if (n % chars_num == 0):
+    while chars_num < n:
+        if n % chars_num == 0:
             operations_num += 1
-            copied_chars += chars_num
+            copied_chars = chars_num
 
         operations_num += 1
         chars_num += copied_chars
