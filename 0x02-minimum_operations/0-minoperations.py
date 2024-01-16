@@ -12,7 +12,7 @@ def minOperations(n: int) -> int:
         return 0
 
     operations_num = 0
-    copied_chars = 1
+    copied_chars = 0
     chars_num = 1
 
     while chars_num < n:
