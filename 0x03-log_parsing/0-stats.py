@@ -7,6 +7,9 @@ def process_line(line, file_size, occurrences_obj):
     """Process a line and update occurrences_obj."""
     line = line.split(' ')
 
+    if len(line) != 9:
+        return 0
+
     occurrences_obj[line[7]] += 1
 
     return int(line[8])
