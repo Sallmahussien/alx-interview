@@ -3,16 +3,18 @@
 import sys
 
 
-def process_line(line, file_size, occurrences_obj):
+def process_line(line, occurrences_obj, itr_num, file_size):
     """Process a line and update occurrences_obj."""
     line = line.split(' ')
 
     if len(line) != 9:
-        return 0
+        return 0, 0
 
     occurrences_obj[line[7]] += 1
+    itr_num += 1
+    file_size += int(line[8])
 
-    return int(line[8])
+    return itr_num, file_size
 
 
 def print_statistics(file_size, occurrences_obj):
@@ -45,8 +47,10 @@ def main():
 
     try:
         for line in sys.stdin:
-            itr_num += 1
-            file_size += process_line(line, file_size, occurrences_obj)
+            itr_num, file_size = process_line(line,
+                                              occurrences_obj,
+                                              itr_num,
+                                              file_size)
 
             if itr_num % 10 == 0:
                 print_statistics(file_size, occurrences_obj)
