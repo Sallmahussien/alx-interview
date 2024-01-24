@@ -10,8 +10,8 @@ def process_line(line, occurrences_obj, itr_num, file_size):
     if len(line) != 9:
         return 0, 0
 
-    if (line[7] in occurrences_obj):
-        occurrences_obj[line[7]] += 1
+    
+    occurrences_obj[line[7]] += 1
     itr_num += 1
     file_size += int(line[8])
 
