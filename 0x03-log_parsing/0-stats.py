@@ -10,8 +10,9 @@ def process_line(line, occurrences_obj, itr_num, file_size):
     if len(line) != 9:
         return 0, 0
 
-    
-    occurrences_obj[line[7]] += 1
+    if line[7] in occurrences_obj:
+        occurrences_obj[line[7]] += 1
+
     itr_num += 1
     file_size += int(line[8])
 
@@ -56,8 +57,11 @@ def main():
             if itr_num % 10 == 0:
                 print_statistics(file_size, occurrences_obj)
 
-    finally:
         print_statistics(file_size, occurrences_obj)
+
+    except KeyboardInterrupt:
+        print_statistics(file_size, occurrences_obj)
+        raise
 
 
 if __name__ == '__main__':
