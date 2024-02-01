@@ -33,7 +33,8 @@ def process_multi_byte(data: List[int], idx: int, remaining_bytes: int) -> int:
         idx += 1
         remaining_bytes -= 1
 
-        if not bin(data[idx])[2:].zfill(8)[-8:].startswith('10'):
+        if (idx >= len(data) or
+                not bin(data[idx])[2:].zfill(8)[-8:].startswith('10')):
             return -1
 
     return idx + 1
