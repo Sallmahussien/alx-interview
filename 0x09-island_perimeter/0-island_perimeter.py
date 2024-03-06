@@ -1,4 +1,9 @@
+#!/usr/bin/python3
+"""Defines 0-island_perimeter module"""
+
+
 def island_perimeter(grid):
+    """Implement is_perimeter problem"""
     perimeter = 0
     grid_height = len(grid)
     grid_width = len(grid[0])
@@ -21,4 +26,3 @@ def island_perimeter(grid):
                     perimeter -= 1
 
     return perimeter
-  
