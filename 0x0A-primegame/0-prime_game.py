@@ -8,59 +8,15 @@ def isWinner(x, nums):
         return None
 
     max_num = max(nums)
-    primes = getPrimes(max_num)
+    primes = sieve_of_eratosthenes(max_num)
 
     ben_score, maria_score = 0, 0
 
     for i in range(x):
-        if nums[i] == 1:
-            ben_score += 1
-            continue
+        primes_count = sum(1 for prime in primes if prime <= nums[i])
 
-        round_set = [True for _ in range(nums[i] + 1)]
-        idx = 2
-        round_set_len = len(round_set)
-        is_score_set = False
-
-        while(idx < round_set_len):
-            while (idx < len(round_set) and not primes[idx]
-                   and not round_set[idx]):
-                idx += 1
-
-            if idx == len(round_set):
-                ben_score += 1
-                is_score_set = True
-                break
-
-            mutiple_idx = idx
-            while(mutiple_idx < round_set_len):
-                last_one_to_remove = 'maria'
-                round_set[mutiple_idx] = False
-                mutiple_idx *= mutiple_idx
-
-            idx += 1
-            while (idx < len(round_set) and not primes[idx]
-                   and not round_set[idx]):
-                idx += 1
-
-            if idx == len(round_set):
-                maria_score += 1
-                is_score_set = True
-                break
-
-            mutiple_idx = idx
-            while(mutiple_idx < round_set_len):
-                last_one_to_remove = 'ben'
-                round_set[mutiple_idx] = False
-                mutiple_idx *= mutiple_idx
-
-            idx += 1
-
-        if not is_score_set:
-            if last_one_to_remove == 'ben':
-                ben_score += 1
-            elif last_one_to_remove == 'maria':
-                maria_score += 1
+        ben_score += primes_count % 2 == 0
+        maria_score += primes_count % 2 == 1
 
     if ben_score == maria_score:
         return None
@@ -68,8 +24,10 @@ def isWinner(x, nums):
     return 'Ben' if ben_score > maria_score else 'Maria'
 
 
-def getPrimes(num):
-    primes = [True for i in range(num + 1)]
+def sieve_of_eratosthenes(num):
+    """Generate primes up to n using the Sieve of Eratosthenes algorithm."""
+    primes = [True] * (num + 1)
+    primes[0], primes[1] = False, False
 
     p = 2
     while(p * p <= num):
@@ -79,4 +37,4 @@ def getPrimes(num):
 
         p += 1
 
-    return primes
+    return [i for i in range(num + 1) if primes[i]]
